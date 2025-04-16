@@ -1,0 +1,23 @@
+volumes:
+  ts_state:
+
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    hostname: ${TS_HOSTNAME}
+    environment:
+      - TS_EXTRA_ARGS=--advertise-tags=tag:container
+      - TS_STATE_DIR=/var/lib/tailscale
+    volumes:
+      - ts_state:/var/lib/tailscale
+    restart: unless-stopped
+
+  sftp:
+    image: "emberstack/sftp"
+    volumes:
+      - ./config/sftp.json:/app/config/sftp.json:ro
+      - ./home:/home
+    depends_on:
+      - tailscale
+    network_mode: service:tailscale
+    restart: unless-stopped
