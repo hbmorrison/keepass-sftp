@@ -16,7 +16,8 @@ tags
 \.netrwhist
 
 ## Application
-/home/*
 /config/sftp.json
+/home/*
+/keys/*
 /tmp/*
 /.env

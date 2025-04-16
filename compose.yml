@@ -17,6 +17,7 @@ services:
     volumes:
       - ./config/sftp.json:/app/config/sftp.json:ro
       - ./home:/home
+      - ./keys:/etc/ssh/keys
     depends_on:
       - tailscale
     network_mode: service:tailscale
